@@ -96,8 +96,6 @@ window.vsync = False
 steve = Entity(model = load_model('assets/steve.obj'),texture = load_texture('assets/Steve.png'),scale = 0.2,rotation = (0,90,0))
 steve.shader = False
 
-player = FirstPersonController(model = steve,jump_height = 1,)
-
 def update():
     global block_pick
     if held_keys['left mouse'] or held_keys['right mouse']:
@@ -113,6 +111,14 @@ def update():
     if held_keys['7']: block_pick = 7
     if held_keys['8']: block_pick = 8
     if held_keys['9']: block_pick = 9
+    ppos = f'x = {round(player.x)}, y = {round(player.y)}, z = {round(player.z)}'
+    player_pos_txt.text = str(ppos)
+
+player = FirstPersonController(model = steve,jump_height = 1,)
+
+player_pos_txt = Text(text='' , scale = 0.7,)
+player_pos_txt.position = (-0.87,0.485)
+player_pos_txt.font = 'assets/pix-pixelfjverdana12pt.regular.ttf'
 
 def input(key):
     if held_keys['a'] or held_keys['w'] or held_keys['s'] or held_keys['d']:
@@ -132,7 +138,7 @@ class Voxel(Button):
             color=color.color(0, 0, random.uniform(0.9, 1)),
             scale=0.5,
             shader = basic_lighting_shader,
-            collider = 'box'
+            mesh='triangle'
         )
 
         self.IsDestractable = True
@@ -217,6 +223,7 @@ for z in range(20):
                 for x1 in range(3):
                     for z1 in range(3):
                         Voxel(texture=leaf_texture, position=(x + x1 - 1, y2 + tree_height + y + 1, z + z1 - 1))
+
 for z in range(20):
     for x in range(20):
         for y1 in range(3):
@@ -233,4 +240,3 @@ print("@2021Copyright @DevjangStudios")
 print('This Worlds seed was = ', seeder, )
 
 app.run()
-
