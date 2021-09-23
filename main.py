@@ -1,8 +1,15 @@
-from random import randint
+import platform
 from ursina import *
+from random import randint
 from ursina.prefabs.first_person_controller import FirstPersonController
 from perlin_noise import PerlinNoise
 from ursina.shaders import basic_lighting_shader
+from ursina.shaders import lit_with_shadows_shader
+
+shader = basic_lighting_shader
+osv = (platform.release())
+winos = (platform.system())
+winost = winos+osv
 
 class BGinv(Entity):
     def __init__(self):
@@ -96,8 +103,11 @@ window.vsync = False
 steve = Entity(model = load_model('assets/steve.obj'),texture = load_texture('assets/Steve.png'),scale = 0.2,rotation = (0,90,0))
 steve.shader = False
 
+
+
 def update():
     global block_pick
+    global shader
     if held_keys['left mouse'] or held_keys['right mouse']:
         hand.active()
     else:
@@ -113,6 +123,10 @@ def update():
     if held_keys['9']: block_pick = 9
     ppos = f'x = {round(player.x)}, y = {round(player.y)}, z = {round(player.z)}'
     player_pos_txt.text = str(ppos)
+    if winost == 'Windows10':
+        shader = lit_with_shadows_shader
+    if winost == 'Windows11':
+        shader = lit_with_shadows_shader
 
 player = FirstPersonController(model = steve,jump_height = 1,)
 
@@ -137,7 +151,7 @@ class Voxel(Button):
             texture=texture,
             color=color.color(0, 0, random.uniform(0.9, 1)),
             scale=0.5,
-            shader = basic_lighting_shader,
+            shader = shader,
             mesh='triangle'
         )
 
@@ -193,7 +207,7 @@ class Hand(Entity):
             scale=0.2,
             rotation=Vec3(150, -10, 0),
             position=Vec2(0.7, -0.6),
-            shader = basic_lighting_shader)
+            shader = shader)
 
     def active(self):
         self.position = Vec2(0.6, -0.5)
