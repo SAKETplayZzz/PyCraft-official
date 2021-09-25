@@ -16,6 +16,7 @@ This is our attempt to create a game like minecraft in ursina engine.
 - Full Screen Mode
 - Hotbar
 - Perlin Noise
+- system which automatically decides if the pc can handle the shader
 
 ## Keys and functions 
 
@@ -28,7 +29,7 @@ This is our attempt to create a game like minecraft in ursina engine.
 - E = inventory open and inventory close
 - TAB = first person and 3rd person mode
 - 1 ,2,3,4,5 = block switching
-
+- tab - 3rd person mode
   
 ## To Do
 
