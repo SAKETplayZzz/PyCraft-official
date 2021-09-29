@@ -21,6 +21,8 @@ This is our attempt to create a game like minecraft in ursina engine.
 ## Keys and functions 
 
 - keys in our games till now
+- F = toogle build mode
+- G = Genarate
 - W = forward
 - A = left 
 - S = back
