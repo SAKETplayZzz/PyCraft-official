@@ -77,16 +77,16 @@ inv7 = Inventory(load_texture('assets/coalinv1.png'), Vec2(0.10, -0.465), '7')
 inv8 = Inventory(load_texture('assets/sandinv1.png'),Vec2(0.15, -0.465), '8')
 inv9 = Inventory(load_texture('assets/glassinv1.png'),Vec2(0.20, -0.465), '9')
 coal_oar_texture = load_texture('assets/coal_block.png')
-log_texture = load_texture('assets/log_texture.png')
+log_texture = load_texture('assets/logtexture.png')
 stone_texture = load_texture('assets/stone_block.png')
 brick_texture = load_texture('assets/brick_block.png')
 dirt_texture = load_texture('assets/dirt_block.png')
 sky_texture = load_texture('assets/skybox.png')
 arm_texture = load_texture('assets/arm_texture.png')
-leaf_texture = load_texture('assets/leaf_block.png')
+leaf_texture = load_texture('assets/leafblock.png')
 sand_texture = load_texture('assets/sand_block.png')
 glass_texture = load_texture('assets/glass_block.png')
-grass_texture = load_texture('assets/grass_block.png')
+grass_texture = load_texture('assets/grasstexture.png')
 a = Audio('assets/Minecraft Footsteps.mp3', autoplay=False, loop=True)
 seeder = randint(1, 18446744073709551616)
 block_pick = 1
@@ -146,11 +146,11 @@ class Voxel(Button):
         super().__init__(
             parent=scene,
             position=position,
-            model='assets/block',
+            model='assets/blockk',
             origin_y=0.5,
             texture=texture,
             color=color.color(0, 0, random.uniform(0.9, 1)),
-            scale=0.5,
+            scale=1,
             shader = shader,
             mesh='triangle'
         )
@@ -193,8 +193,6 @@ class Voxel(Button):
                 camera.z = -5.5 if camera.z == 0.5 else 0.5
             if held_keys['tab']:
                 steve.visible = True if steve.visible == False else False
-            if held_keys['tab']:
-                hand.visible = False if hand.visible == True else True
             if held_keys['enter']:
                  player.speed = 3.5 if player.speed == 6.5 else 6.5
 
