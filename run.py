@@ -36,7 +36,7 @@ origin = player.position # Vec3 object? .x .y .z
 
 # Load in textures and models.
 monoTex = 'stroke_mono.png'
-cubeTex = 'block_texture.png'
+cubeTex = 'grasstexture.png'
 cubeModel = 'moonCube'
 
 # Important variables (e.g. for terrain generation).
@@ -265,3 +265,4 @@ def generateShell():
 generateShell()
 
 app.run()
+
