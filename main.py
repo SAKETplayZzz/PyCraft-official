@@ -193,7 +193,7 @@ class Voxel(Button):
                 camera.z = -5.5 if camera.z == 0.5 else 0.5
             if held_keys['tab']:
                 steve.visible = True if steve.visible == False else False
-            if held_keys['enter']:
+            if held_keys['shift'] and ['w'] or ['a'] or ['s'] or ['d']:
                  player.speed = 3.5 if player.speed == 6.5 else 6.5
 
 class Hand(Entity):
