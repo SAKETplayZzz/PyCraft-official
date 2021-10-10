@@ -22,6 +22,9 @@ leaf_texture = load_texture('assets/leaf_block.png')
 sand_texture = load_texture('assets/sand_block.png')
 glass_texture = load_texture('assets/glass_block.png')
 
+vid =Entity(model='quad', position = Vec2(0,0),scale = (1.779,1),parent = camera.ui,texture = 'devjang intro.mp4',)
+destroy(vid, delay=5)
+
 # Our main character.
 player = FirstPersonController()
 player.cursor.visible = False
@@ -40,7 +43,7 @@ cubeTex = 'grasstexture.png'
 cubeModel = 'moonCube'
 
 # Important variables (e.g. for terrain generation).
-noise = PerlinNoise(octaves=1,seed=int(randrange(99,111)))
+noise = PerlinNoise(octaves=1,seed=int(randrange(40, 1010)))
 seedMouth = Text(   text='<white><bold>Your seed, today, sir, is ' +
                     str(noise.seed),background=True)
 seedMouth.background.color = color.orange
@@ -48,6 +51,7 @@ seedMouth.scale *= 1.4
 seedMouth.x = -0.52
 seedMouth.y = 0.4
 seedMouth.appear(speed=0.15)
+destroy(seedMouth, delay=15)
 
 # print('seed is ' + str(noise.seed))
 
@@ -87,9 +91,10 @@ prevTime = time.time()
 scene.fog_color = color.rgb(0,222,0)
 scene.fog_density = 0.02
 
+show_advanced = 0
 
 def input(key):
-    global generating, canGenerate
+    global generating, canGenerate, show_advanced
     varch.input(key)
     if varch.buildMode == 1:
         generating = -1
@@ -100,6 +105,14 @@ def input(key):
     if key == 'g':
         generating *= -1
         canGenerate *= -1
+    if held_keys['f3']:
+        show_advanced = 1
+        seed_f3 = Text(text='<white><bold>Your seed is ' + str(noise.seed), background=True)
+        seed_f3.background.color = color.orange
+        seed_f3.scale *= 1.4
+        seed_f3.x = -0.8
+        seed_f3.y = 0.45
+        destroy(seed_f3, delay=20)
 
 def update():
     global prevZ, prevX, prevTime, genSpeed, perCycle
@@ -265,4 +278,3 @@ def generateShell():
 generateShell()
 
 app.run()
-
