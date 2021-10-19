@@ -6,10 +6,15 @@ from perlin_noise import PerlinNoise
 from ursina.shaders import basic_lighting_shader
 from ursina.shaders import lit_with_shadows_shader
 
-shader = basic_lighting_shader
 osv = (platform.release())
 winos = (platform.system())
-winost = winos+osv
+Shaderdecidenumber = winos+osv
+shaderdec = basic_lighting_shader
+
+if Shaderdecidenumber == 'Windows0':
+    shaderdec = lit_with_shadows_shader
+if Shaderdecidenumber == 'Windows11':
+    shaderdec = lit_with_shadows_shader
 
 class BGinv(Entity):
     def __init__(self):
@@ -20,7 +25,6 @@ class BGinv(Entity):
             position=Vec2(0, 0),
             color=color.rgba(0, 0, 0.75, 100),
         )
-
 class BG(Entity):
     def __init__(self):
         super().__init__(
@@ -123,10 +127,6 @@ def update():
     if held_keys['9']: block_pick = 9
     ppos = f'x = {round(player.x)}, y = {round(player.y)}, z = {round(player.z)}'
     player_pos_txt.text = str(ppos)
-    if winost == 'Windows10':
-        shader = lit_with_shadows_shader
-    if winost == 'Windows11':
-        shader = lit_with_shadows_shader
 
 player = FirstPersonController(model = steve,jump_height = 1,)
 
@@ -151,7 +151,7 @@ class Voxel(Button):
             texture=texture,
             color=color.color(0, 0, random.uniform(0.9, 1)),
             scale=1,
-            shader = shader,
+            shader = shaderdec,
             mesh='triangle'
         )
 
@@ -205,7 +205,7 @@ class Hand(Entity):
             scale=0.2,
             rotation=Vec3(150, -10, 0),
             position=Vec2(0.7, -0.6),
-            shader = shader)
+            shader = shaderdec)
 
     def active(self):
         self.position = Vec2(0.6, -0.5)
@@ -245,10 +245,10 @@ for z in range(20):
 
 
 Sky(texture=sky_texture,shader = False)
+
 hand = Hand()
 pivot = Entity()
 sun = DirectionalLight(rotation=(45,45,45))
 print("@2021Copyright @DevjangStudios")
 print('This Worlds seed was = ', seeder, )
-
 app.run()
