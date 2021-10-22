@@ -11,7 +11,7 @@ winos = (platform.system())
 Shaderdecidenumber = winos+osv
 shaderdec = basic_lighting_shader
 
-if Shaderdecidenumber == 'Windows0':
+if Shaderdecidenumber == 'Windows10':
     shaderdec = lit_with_shadows_shader
 if Shaderdecidenumber == 'Windows11':
     shaderdec = lit_with_shadows_shader
