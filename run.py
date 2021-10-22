@@ -5,11 +5,13 @@ from ursina.prefabs.first_person_controller import FirstPersonController
 from numpy import floor,abs,sin,cos,radians
 import time
 from perlin_noise import PerlinNoise  
-from nMap import nMap
 from cave_system import Caves
 from mining_system import Mining_system
 
 app = Ursina()
+
+def nMap(n, min1, max1, min2, max2):
+    return ((n-min1)/(max1-min1))*(max2-min2)+min2
 
 coal_oar_texture = load_texture('assets/coal_block.png')
 log_texture = load_texture('assets/log_texture.png')
