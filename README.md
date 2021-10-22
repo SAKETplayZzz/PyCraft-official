@@ -30,8 +30,9 @@ This is our attempt to create a game like minecraft in ursina engine.
 - F = full screen on and off
 - E = inventory open and inventory close
 - TAB = first person and 3rd person mode
-- 1 ,2,3,4,5 = block switching
+- 1,2,3,4,5 = block switching
 - Shift + (W,A,S,D) = Sprint
+- Q = Quit
   
 ## To Do
 
