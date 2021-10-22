@@ -125,6 +125,7 @@ def update():
     if held_keys['7']: block_pick = 7
     if held_keys['8']: block_pick = 8
     if held_keys['9']: block_pick = 9
+    if held_keys['backspace']: application.quit()
     ppos = f'x = {round(player.x)}, y = {round(player.y)}, z = {round(player.z)}'
     player_pos_txt.text = str(ppos)
 
