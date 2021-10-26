@@ -4,14 +4,14 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from numpy import floor,abs,sin,cos,radians
 import time
-from perlin_noise import PerlinNoise  
+from perlin_noise import PerlinNoise
 from cave_system import Caves
 from mining_system import Mining_system
 
-app = Ursina()
-
 def nMap(n, min1, max1, min2, max2):
     return ((n-min1)/(max1-min1))*(max2-min2)+min2
+
+app = Ursina()
 
 coal_oar_texture = load_texture('assets/coal_block.png')
 log_texture = load_texture('assets/log_texture.png')
@@ -113,8 +113,14 @@ def input(key):
         seed_f3.background.color = color.orange
         seed_f3.scale *= 1.4
         seed_f3.x = -0.8
-        seed_f3.y = 0.45
+        seed_f3.y = 0.34
+        player_positon_f3 = Text(text='<white><bold>Your position is ' + str(player.position), background=True)
+        player_positon_f3.background.color = color.orange
+        player_positon_f3.scale *= 1.4
+        player_positon_f3.x = -0.8
+        player_positon_f3.y = 0.45
         destroy(seed_f3, delay=20)
+        destroy(player_positon_f3, delay=20)
 
 def update():
     global prevZ, prevX, prevTime, genSpeed, perCycle
