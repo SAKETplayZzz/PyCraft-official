@@ -1,5 +1,5 @@
 
-from random import randrange
+from random import randrange, randint
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from numpy import floor,abs,sin,cos,radians
@@ -41,7 +41,7 @@ origin = player.position # Vec3 object? .x .y .z
 
 # Load in textures and models.
 monoTex = 'stroke_mono.png'
-cubeTex = 'grasstexture.png'
+
 cubeModel = 'moonCube'
 
 # Important variables (e.g. for terrain generation).
@@ -77,6 +77,11 @@ subDic = {}
 
 # Instantiate our empty subsets.
 for i in range(numSubsets):
+    a = randint(1, 2)
+    if a == 1:
+        cubeTex = 'grasstexture.png'
+    else:
+        cubeTex = 'grasstexture1.png'
     bud = Entity(model=cubeModel)
     bud.texture = cubeTex
     bud.disable()
