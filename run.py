@@ -7,6 +7,7 @@ import time
 from perlin_noise import PerlinNoise
 from cave_system import Caves
 from mining_system import Mining_system
+from player import PlayerController
 
 def nMap(n, min1, max1, min2, max2):
     return ((n-min1)/(max1-min1))*(max2-min2)+min2
@@ -28,7 +29,7 @@ vid =Entity(model='quad', position = Vec2(0,0),scale = (1.779,1),parent = camera
 destroy(vid, delay=5)
 
 # Our main character.
-player = FirstPersonController()
+player = PlayerController()
 player.cursor.visible = False
 player.gravity = 0
 grav_speed = 0
@@ -46,14 +47,16 @@ cubeModel = 'moonCube'
 
 # Important variables (e.g. for terrain generation).
 noise = PerlinNoise(octaves=1,seed=int(randrange(40, 1010)))
-seedMouth = Text(   text='<white><bold>Your seed, today, sir, is ' +
-                    str(noise.seed),background=True)
-seedMouth.background.color = color.orange
-seedMouth.scale *= 1.4
-seedMouth.x = -0.52
-seedMouth.y = 0.4
-seedMouth.appear(speed=0.15)
-destroy(seedMouth, delay=15)
+def seedmouth():
+    seedMouth = Text(text='<white><bold>Your seed, today, sir, is ' + str(noise.seed),background=True)
+    seedMouth.background.color = color.orange
+    seedMouth.scale *= 1.4
+    seedMouth.x = -0.52
+    seedMouth.y = 0.4
+    seedMouth.appear(speed=0.15)
+    destroy(seedMouth, delay=15)
+
+invoke(seedmouth, delay=5)
 
 # print('seed is ' + str(noise.seed))
 
@@ -75,10 +78,14 @@ rad = 0
 # at location specified in key.
 subDic = {}
 
+player_pos_txt = Text(text='' , scale = 0.7,)
+player_pos_txt.position = (-0.87,0.485)
+player_pos_txt.font = 'assets/pix-pixelfjverdana12pt.regular.ttf'
+
 # Instantiate our empty subsets.
 for i in range(numSubsets):
-    a = randint(1, 2)
-    if a == 1:
+    random1to2 = randint(1, 2)
+    if random1to2 == 1:
         cubeTex = 'grasstexture.png'
     else:
         cubeTex = 'grasstexture1.png'
@@ -119,13 +126,14 @@ def input(key):
         seed_f3.scale *= 1.4
         seed_f3.x = -0.8
         seed_f3.y = 0.34
-        player_positon_f3 = Text(text='<white><bold>Your position is ' + str(player.position), background=True)
+        '''player_positon_f3 = Text(text='<white><bold>Your position is ' + str(player.position), background=True)
         player_positon_f3.background.color = color.orange
         player_positon_f3.scale *= 1.4
         player_positon_f3.x = -0.8
-        player_positon_f3.y = 0.45
+        player_positon_f3.y = 0.45'''
         destroy(seed_f3, delay=20)
-        destroy(player_positon_f3, delay=20)
+    if key == 'f4':
+        camera.z -= 1
 
 def update():
     global prevZ, prevX, prevTime, genSpeed, perCycle
@@ -138,17 +146,14 @@ def update():
             generating = 1 * canGenerate
             prevZ = player.z
             prevX = player.x
-
-
     generateShell()
-
     if time.time() - prevTime > genSpeed:
         for i in range(perCycle):
             genTerrain()
         prevTime = time.time()
     varch.buildTool()
-
-
+    ppos = f'x = {round(player.x)}, y = {round(player.y)}, z = {round(player.z)}'
+    player_pos_txt.text = str(ppos)
 
 # Instantiate our 'ghost' subset cubes.
 for i in range(numSubCubes):
